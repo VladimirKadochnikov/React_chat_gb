@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { Message } from "./message";
 import { makeStyles } from "@mui/styles";
 import { Input, InputAdornment } from "@mui/material";
@@ -8,30 +9,36 @@ import styles from "./message-list.module.css";
 export const useStyles = makeStyles(() => {});
 
 export const MessageList = () => {
-  const [messageList, setMessageList] = useState([]);
+  const { roomId } = useParams();
+  const [messageList, setMessageList] = useState({});
   const [text, setText] = useState("");
   const ref = useRef(null);
   const refScroll = useRef(null);
 
   useEffect(() => {
-    const lastMess = messageList[messageList.length - 1];
+    const roomMessages = messageList[roomId] ?? [];
+    const lastMess = roomMessages[roomMessages.length - 1];
+
     let timerId = null;
 
-    if (messageList.length && lastMess.author !== "Bot") {
+    if (roomMessages.length && lastMess.author !== "Bot") {
       timerId = setTimeout(() => {
-        setMessageList([
+        setMessageList({
           ...messageList,
-          {
-            author: "Bot",
-            message: `Hello ${lastMess.author}`,
-            date: new Date(),
-          },
-        ]);
+          [roomId]: [
+            ...(messageList[roomId] ?? []),
+            {
+              author: "Bot",
+              message: `Hello ${lastMess.author}`,
+              date: new Date(),
+            },
+          ],
+        });
       }, 500);
     }
 
     return () => clearInterval(timerId);
-  }, [messageList]);
+  }, [messageList, roomId]);
 
   useEffect(() => {
     ref.current?.focus();
@@ -45,10 +52,13 @@ export const MessageList = () => {
 
   const addMessage = () => {
     if (text !== "") {
-      setMessageList([
+      setMessageList({
         ...messageList,
-        { author: "User", message: text, date: new Date() },
-      ]);
+        [roomId]: [
+          ...(messageList[roomId] ?? []),
+          { author: "User", message: text, date: new Date() },
+        ],
+      });
       setText("");
     }
   };
@@ -63,24 +73,26 @@ export const MessageList = () => {
     }
   };
 
+  const roomMessages = messageList[roomId] ?? [];
+
   return (
     <>
-      <div ref={refScroll}>
-        {messageList.map((message, index) => (
+      <div ref={refScroll} className={styles.message_list}>
+        {roomMessages.map((message, index) => (
           <Message message={message} key={index} />
         ))}
       </div>
       <Input
         fullWidth
         ref={ref}
-        className={styles.form_text}
+        className={styles.input_message}
         placeholder="Enter message"
         onChange={handleText}
         onKeyPress={handlePressInput}
         value={text}
         endAdornment={
           <InputAdornment position="end">
-            <Send onClick={addMessage} />
+            <Send className={styles.input_icon} onClick={addMessage} />
           </InputAdornment>
         }
       />

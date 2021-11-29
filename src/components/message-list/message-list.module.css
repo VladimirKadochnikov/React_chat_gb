@@ -1,60 +1,63 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.test_header {
-  padding: 20px;
-  background-color: grey;
-  color: #ffffff;
-}
-
-.form {
+.message {
   width: 360px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: grey;
+  position: relative;
+}
+
+.bot_message {
+  width: 360px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  border-radius: 5px;
+  background-color: grey;
+  position: relative;
+}
+
+.message_list {
   display: flex;
   flex-direction: column;
 }
-.form_name,
-.form_text {
-  margin: 20px;
-  width: auto;
-  height: 45px;
-  border: 1px solid #a4a4a4;
-  font-weight: 300;
-  font-size: 13px;
-  line-height: 16px;
-  padding: 0 15px 0 15px;
-}
-.form_button {
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  text-transform: uppercase;
-  color: #ffffff;
-  background-color: grey;
-  width: 200px;
-  height: 30px;
-  border: 1px solid darkgrey;
-  margin: 20px;
-  cursor: pointer;
-}
 
-.message {
-  width: 360px;
-  margin: 20px;
-  border-radius: 5px;
-  background-color: grey;
-}
 .name {
   margin: 0;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   color: aqua;
-  padding: 15px;
+  padding: 7px;
 }
 .text {
   font-weight: 300;
-  font-size: 15px;
+  font-size: 14px;
   color: #ffffff;
-  padding: 15px;
+  word-break: break-all;
+  padding: 7px;
+  margin: 0;
+}
+
+.time {
+  font-weight: 300;
+  font-size: 14px;
+  position: absolute;
+  right: 15px;
+  bottom: 7px;
+  margin: 0;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.input_message {
+  display: flex;
+  justify-self: flex-end;
+  padding: 10px;
+}
+
+.input_icon {
+  color: #4a729a;
+  cursor: pointer;
 }
