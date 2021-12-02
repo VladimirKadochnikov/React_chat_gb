@@ -1,44 +1,44 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Message } from "./message";
 import { makeStyles } from "@mui/styles";
 import { Input, InputAdornment } from "@mui/material";
 import { Send } from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
+import { messagesSelector, sendMessage } from "../../store/messages";
 import styles from "./message-list.module.css";
 
 export const useStyles = makeStyles(() => {});
 
 export const MessageList = () => {
   const { roomId } = useParams();
-  const [messageList, setMessageList] = useState({});
+  const messages = useSelector(messagesSelector(roomId));
   const [text, setText] = useState("");
   const ref = useRef(null);
   const refScroll = useRef(null);
 
+  const dispatch = useDispatch(sendMessage);
+
+  const addMessage = useCallback(
+    (author = "User", botMessage) => {
+      if (text || botMessage) {
+        dispatch(sendMessage({ author, message: text || botMessage }, roomId));
+        setText("");
+      }
+    },
+    [text, roomId, dispatch]
+  );
+
   useEffect(() => {
-    const roomMessages = messageList[roomId] ?? [];
-    const lastMess = roomMessages[roomMessages.length - 1];
-
+    const lastMess = messages[messages.length - 1];
     let timerId = null;
-
-    if (roomMessages.length && lastMess.author !== "Bot") {
+    if (messages.length && lastMess.author !== "Bot") {
       timerId = setTimeout(() => {
-        setMessageList({
-          ...messageList,
-          [roomId]: [
-            ...(messageList[roomId] ?? []),
-            {
-              author: "Bot",
-              message: `Hello ${lastMess.author}`,
-              date: new Date(),
-            },
-          ],
-        });
+        addMessage("Bot", `Hello ${lastMess.author}`);
       }, 500);
     }
-
     return () => clearInterval(timerId);
-  }, [messageList, roomId]);
+  }, [messages, roomId, addMessage]);
 
   useEffect(() => {
     ref.current?.focus();
@@ -48,20 +48,7 @@ export const MessageList = () => {
     if (refScroll.current) {
       refScroll.current.scrollTo(0, refScroll.current.scrollHeight);
     }
-  }, [messageList]);
-
-  const addMessage = () => {
-    if (text !== "") {
-      setMessageList({
-        ...messageList,
-        [roomId]: [
-          ...(messageList[roomId] ?? []),
-          { author: "User", message: text, date: new Date() },
-        ],
-      });
-      setText("");
-    }
-  };
+  }, [messages]);
 
   const handleText = (event) => {
     setText(event.target.value);
@@ -73,12 +60,10 @@ export const MessageList = () => {
     }
   };
 
-  const roomMessages = messageList[roomId] ?? [];
-
   return (
     <>
       <div ref={refScroll} className={styles.message_list}>
-        {roomMessages.map((message, index) => (
+        {messages.map((message, index) => (
           <Message message={message} key={index} />
         ))}
       </div>
