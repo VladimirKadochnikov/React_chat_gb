@@ -1,0 +1,63 @@
+.message {
+  width: 360px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: grey;
+  position: relative;
+}
+
+.bot_message {
+  width: 360px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  border-radius: 5px;
+  background-color: grey;
+  position: relative;
+}
+
+.message_list {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  margin: 0;
+  font-weight: 400;
+  font-size: 16px;
+  color: aqua;
+  padding: 7px;
+}
+.text {
+  font-weight: 300;
+  font-size: 14px;
+  color: #ffffff;
+  word-break: break-all;
+  padding: 7px;
+  margin: 0;
+}
+
+.time {
+  font-weight: 300;
+  font-size: 14px;
+  position: absolute;
+  right: 15px;
+  bottom: 7px;
+  margin: 0;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.input_message {
+  display: flex;
+  justify-self: flex-end;
+  padding: 10px;
+}
+
+.input_icon {
+  color: #4a729a;
+  cursor: pointer;
+}
