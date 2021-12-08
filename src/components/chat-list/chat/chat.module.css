@@ -20,3 +20,20 @@
   font-family: Lato;
   text-decoration: none;
 }
+.delete {
+  color: #fff;
+  padding-right: 5px;
+}
+.delete:hover {
+  color: #4a729a;
+}
+
+.add {
+  color: #fff;
+  padding: 5px 0 0 13px;
+  cursor: pointer;
+}
+
+.add:hover {
+  color: #4a729a;
+}

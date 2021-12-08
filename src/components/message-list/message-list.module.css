@@ -61,3 +61,14 @@
   color: #4a729a;
   cursor: pointer;
 }
+
+.delete {
+  color: #fff;
+  position: absolute;
+  right: 9px;
+  bottom: 38px;
+  cursor: pointer;
+}
+.delete:hover {
+  color: #4a729a;
+}

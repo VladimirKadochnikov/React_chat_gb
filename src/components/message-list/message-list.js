@@ -29,16 +29,16 @@ export const MessageList = () => {
     [text, roomId, dispatch]
   );
 
-  useEffect(() => {
-    const lastMess = messages[messages.length - 1];
-    let timerId = null;
-    if (messages.length && lastMess.author !== "Bot") {
-      timerId = setTimeout(() => {
-        addMessage("Bot", `Hello ${lastMess.author}`);
-      }, 500);
-    }
-    return () => clearInterval(timerId);
-  }, [messages, roomId, addMessage]);
+  // useEffect(() => {
+  //   const lastMess = messages[messages.length - 1];
+  //   let timerId = null;
+  //   if (messages.length && lastMess.author !== "Bot") {
+  //     timerId = setTimeout(() => {
+  //       addMessage("Bot", `Hello ${lastMess.author}`);
+  //     }, 500);
+  //   }
+  //   return () => clearInterval(timerId);
+  // }, [messages, roomId, addMessage]);
 
   useEffect(() => {
     ref.current?.focus();
