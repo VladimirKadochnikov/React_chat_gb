@@ -1,6 +1,7 @@
 import { SEND_MESSAGE, DELETE_MESSAGE_BY_ID } from "./types";
 import { DELETE_CONVERSATION } from "../types";
 import { nanoid } from "nanoid";
+import { format } from "date-fns";
 
 const initialState = {
   messages: {},
@@ -15,7 +16,11 @@ export const messagesReducer = (state = initialState, action) => {
           ...state.messages,
           [action.payload.roomId]: [
             ...(state.messages[action.payload.roomId] ?? []),
-            { ...action.payload.message, date: new Date(), id: nanoid() },
+            {
+              ...action.payload.message,
+              date: format(new Date(), "eee HH:mm"),
+              id: nanoid(),
+            },
           ],
         },
       };
