@@ -1,0 +1,39 @@
+.info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.info .chat_list_text:last-child {
+  text-align: right;
+}
+
+.chat_list_icon,
+.chat_list_text {
+  color: #fff;
+}
+.chat_list_text span {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: Lato;
+  text-decoration: none;
+}
+.delete {
+  color: #fff;
+  padding-right: 5px;
+}
+.delete:hover {
+  color: #4a729a;
+}
+
+.add {
+  color: #fff;
+  padding: 5px 0 0 13px;
+  cursor: pointer;
+}
+
+.add:hover {
+  color: #4a729a;
+}
