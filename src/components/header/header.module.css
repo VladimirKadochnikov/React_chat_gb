@@ -1,0 +1,15 @@
+.header {
+  background-color: #4a729a;
+  padding: 10px;
+  height: 70px;
+}
+
+.header_main {
+  color: #fff;
+  margin: 0 0 10px 0;
+}
+.header a {
+  text-decoration: none;
+  color: #fff;
+  margin-right: 15px;
+}
